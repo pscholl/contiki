@@ -56,6 +56,7 @@ static uint8_t initialized = 0;
 typedef struct nbr_table_key {
   struct nbr_table_key *next;
   linkaddr_t lladdr;
+  void *fix_for_gcc491;
 } nbr_table_key_t;
 
 /* For each neighbor, a map of the tables that use the neighbor.
@@ -177,7 +178,6 @@ nbr_table_allocate(void)
   nbr_table_key_t *least_used_key = NULL;
 
   key = memb_alloc(&neighbor_addr_mem);
-  key->next = NULL;
   if(key != NULL) {
     return key;
   } else { /* No more space, try to free a neighbor.
